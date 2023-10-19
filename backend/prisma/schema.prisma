@@ -18,8 +18,8 @@ model User {
   nickname String
   password String
   email String
-  excluded Boolean
-  password_reset Boolean
+  excluded Boolean?
+  password_reset Boolean?
   agreement_date DateTime? @default(now())
   last_notice DateTime? @default(now())
   last_password_update DateTime? @default(now())

@@ -1,7 +1,14 @@
+{/* ESSENCIAIS */}
 import { Router, Request, Response } from "express";
+// import multer from 'multer'; -> caso seja utilizado anexo de arquivos na app
 
-const router = Router();
+{/* CONTROLLERS */}
+// user controllers
+import { CreateUserController } from "./controllers/user/CreateUserController";
 
+export const router = Router();
+
+// NAO UTILIZAR E NAO APAGAR
 router.get('/fire', (req: Request, res: Response) => {
   return res.json({ 
     project: "fenix",
@@ -9,4 +16,6 @@ router.get('/fire', (req: Request, res: Response) => {
   })
 })
 
-export { router };
+{/* ROTAS USER */}
+// criação de usuário
+router.post('/user/add', new CreateUserController().handle)
