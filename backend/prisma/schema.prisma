@@ -1,0 +1,28 @@
+// Todo o schema do banco é modelado aqui, lembre-se de gerar uma migration
+// caso seja necessario realizar alguma alteração.
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Comando para criar a migration: yarn prisma migrate dev
+model User {
+  id String @id @default(uuid())
+  name String
+  nickname String
+  password String
+  email String
+  excluded Boolean?
+  password_reset Boolean?
+  agreement_date DateTime? @default(now())
+  last_notice DateTime? @default(now())
+  last_password_update DateTime? @default(now())
+
+  @@map("users")
+}
