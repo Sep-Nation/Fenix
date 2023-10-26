@@ -18,6 +18,7 @@ model User {
   nickname String
   password String
   email String
+  role Role @default(USER)
   excluded Boolean?
   password_reset Boolean?
   agreement_date DateTime? @default(now())
@@ -25,4 +26,32 @@ model User {
   last_password_update DateTime? @default(now())
 
   @@map("users")
+  inssues Inssue[]
+}
+
+model Inssue {
+  id String @id @default(uuid())
+  title String
+  information String
+  status InssueStatus?
+  draft Boolean @default(true)
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  
+  users User @relation(fields: [user_id], references: [id])
+
+  @@map("inssues")
+  user_id String
+}
+
+// ENUMS
+enum Role {
+  USER
+  ADMIN
+}
+
+enum InssueStatus {
+  RESOLVED
+  INPROGRESS
+  CLOSED
 }
