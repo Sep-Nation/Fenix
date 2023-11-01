@@ -5,6 +5,13 @@ import { Router, Request, Response } from "express";
 {/* CONTROLLERS */}
 // user controllers
 import { CreateUserController } from "./controllers/user/CreateUserController";
+import { DeleteUserController } from "./controllers/user/DeleteUserController";
+import { AuthUserController } from "./controllers/auth/AuthUserController";
+
+{/* MIDDLEWARES */}
+import { isAuthenticated } from "./middlewares/isAuthenticated";
+import { CreateInssueController } from "./controllers/inssues/CreateInssueController";
+import { UndeletUserController } from "./controllers/user/UndeletUserController";
 
 export const router = Router();
 
@@ -30,3 +37,17 @@ router.get('/inssueExample', (req: Request, res: Response) => {
 {/* ROTAS USER */}
 // criação de usuário
 router.post('/user/add', new CreateUserController().handle)
+/**
+ * A Exclusão de usuário não apaga o mesmo, apenas
+ * atribui o valor TRUE ao boolean Excluded no banco
+ * de dados.
+ */
+router.put('/user/exclude', new DeleteUserController().handle)
+// Retirar exclusão de usuario
+router.put('/user/undelete', new UndeletUserController().handle)
+
+{/* ROTA DE LOGIN */}
+router.post('/session', new AuthUserController().handle)
+
+{/* ROTAS DE INSSUES */}
+router.post('/issue/create', new CreateInssueController().handle)
