@@ -5,7 +5,7 @@ TOP-SECRET PROJECT!!!!
 ### Usuario
 [x] - Criação de usuario
 
-[ ] - Edição / exclusão (A exclusão ocorre por meio de uma tag no banco de dados e nao no delete do usuario)
+[x] - Edição / exclusão (A exclusão ocorre por meio de uma tag no banco de dados e nao no delete do usuario)
 
 [ ] - Permissões de usuario
 
