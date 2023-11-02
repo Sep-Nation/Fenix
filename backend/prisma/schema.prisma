@@ -17,20 +17,31 @@ model User {
   name String
   nickname String
   password String
-  email String
-  role Role @default(USER)
-  excluded Boolean?
+  email String 
+  excluded Boolean? @default(false)
   password_reset Boolean?
   agreement_date DateTime? @default(now())
   last_notice DateTime? @default(now())
   last_password_update DateTime? @default(now())
 
+  group Group @relation(fields: [group_id], references: [id])
+
   @@map("users")
   inssues Inssue[]
+  group_id String
+}
+
+model Group {
+  id String @id @default(uuid())
+  name String
+  role GroupRole? @default(NONE)
+  
+  @@map("groups")
+  users User[]
 }
 
 model Inssue {
-  id String @id @default(uuid())
+  id String @id @unique @default(uuid())
   title String
   information String
   status InssueStatus?
@@ -45,13 +56,17 @@ model Inssue {
 }
 
 // ENUMS
-enum Role {
-  USER
-  ADMIN
-}
 
 enum InssueStatus {
   RESOLVED
   INPROGRESS
   CLOSED
+}
+
+enum GroupRole {
+  NONE
+  READ
+  WRITE
+  ADMINISTRATIVE
+  DEV
 }
