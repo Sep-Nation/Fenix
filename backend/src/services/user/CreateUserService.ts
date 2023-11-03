@@ -6,14 +6,15 @@ interface UserRequest {
   nickname: string;
   password: string;
   email: string;
+  group_id: string;
 }
 
 export class CreateUserService {
-  async execute( {name, nickname, password, email }: UserRequest) {
+  async execute( {name, nickname, password, email, group_id }: UserRequest) {
     {/* VERIFICAÇÕES */}
 
     // Verificar se todos os dados foram enviados
-    if(!name || !nickname || !password || !email){
+    if(!name || !nickname || !password || !email || !group_id){
       throw new Error("Informe todos os dados para cadastro")
     }
 
@@ -47,6 +48,7 @@ export class CreateUserService {
         nickname: nickname,
         password: passwordHash,
         email: email,
+        group_id: group_id
       },
       select: {
         id: true,
